@@ -11,17 +11,17 @@ define :hdbcmd, :exe => "", :bin_dir => "", :bin_file_url => "" do
     end
 #replace execute provider with remote_file provider
 =begin
-#    execute "Get SAPCAR tool for Hana extracting hana package" do
-#      cwd "#{node['install']['tempdir']}"
-#      command "wget #{node['install']['files']['sapcar']}"
-#    end
+    execute "Get SAPCAR tool for Hana extracting hana package" do
+      cwd "#{node['install']['tempdir']}"
+      command "wget #{node['install']['files']['sapcar']}"
+    end
  
   # end
 
-#    execute "Get SAPCAR tool for Hana extracting hana package" do
-#      cwd "#{node['install']['tempdir']}"
-#      command "cp #{node['install']['files']['sapcar']} ."
-#    end
+    execute "Get SAPCAR tool for Hana extracting hana package" do
+      cwd "#{node['install']['tempdir']}"
+      command "cp #{node['install']['files']['sapcar']} ."
+    end
 =end 
     remote_file "#{node['install']['tempdir']}/SAPCAR" do
       source "#{node['install']['files']['sapcar']}"

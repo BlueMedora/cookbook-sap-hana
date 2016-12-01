@@ -5,7 +5,7 @@ define :hdbcmd, :exe => "", :bin_dir => "", :bin_file_url => "" do
 
   # unless $already_done
     directory "Create temporary directory" do
-      path "file://#{}{node['install']['tempdir']}"
+      path "#{node['install']['tempdir']}"
       action :create
       recursive true
     end
@@ -24,7 +24,8 @@ define :hdbcmd, :exe => "", :bin_dir => "", :bin_file_url => "" do
     end
 =end 
     remote_file "#{node['install']['tempdir']}/SAPCAR" do
-      source "file://#{node['install']['files']['sapcar']}"
+      #source "file://#{node['install']['files']['sapcar']}"
+      source "#{node['install']['files']['sapcar']}"
       action :create
     end
 =begin
@@ -40,7 +41,9 @@ define :hdbcmd, :exe => "", :bin_dir => "", :bin_file_url => "" do
       command "cp #{params[:bin_file_url]} SAP_HANA_PACKAGE.SAR"
     end
 =end
+    if params[:bin_file_url].start_with?("file")
     remote_file "#{node['install']['tempdir']}/IMDB_SERVER100_112_7-10009569.SAR" do
+      #source "file://#{node['install']['files']['hanadb']}"
       source "#{node['install']['files']['hanadb']}"
       action :create
     end
@@ -53,7 +56,7 @@ define :hdbcmd, :exe => "", :bin_dir => "", :bin_file_url => "" do
       command "wget --progress=dot:giga #{params[:bin_file_url]} -O SAP_HANA_PACKAGE.SAR"
     end
 
-  else
+  elsif
      unless $already_done
        directory "#{node['install']['productionmountpoint1']}" do
          action :create

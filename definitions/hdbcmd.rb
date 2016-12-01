@@ -5,7 +5,7 @@ define :hdbcmd, :exe => "", :bin_dir => "", :bin_file_url => "" do
 
   # unless $already_done
     directory "Create temporary directory" do
-      path "#{node['install']['tempdir']}"
+      path "file://#{}{node['install']['tempdir']}"
       action :create
       recursive true
     end
@@ -24,7 +24,7 @@ define :hdbcmd, :exe => "", :bin_dir => "", :bin_file_url => "" do
     end
 =end 
     remote_file "#{node['install']['tempdir']}/SAPCAR" do
-      source "#{node['install']['files']['sapcar']}"
+      source "file://#{node['install']['files']['sapcar']}"
       action :create
     end
 =begin

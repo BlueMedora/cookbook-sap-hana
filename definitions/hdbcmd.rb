@@ -9,48 +9,19 @@ define :hdbcmd, :exe => "", :bin_dir => "", :bin_file_url => "" do
       action :create
       recursive true
     end
-#replace execute provider with remote_file provider
-=begin
-    execute "Get SAPCAR tool for Hana extracting hana package" do
-      cwd "#{node['install']['tempdir']}"
-      command "wget #{node['install']['files']['sapcar']}"
-    end
- 
-  # end
 
-    execute "Get SAPCAR tool for Hana extracting hana package" do
-      cwd "#{node['install']['tempdir']}"
-      command "cp #{node['install']['files']['sapcar']} ."
-    end
-=end 
     remote_file "#{node['install']['tempdir']}/SAPCAR" do
-      #source "file://#{node['install']['files']['sapcar']}"
       source "#{node['install']['files']['sapcar']}"
       action :create
     end
-=begin
-  if params[:bin_file_url].start_with?("http")
-    execute "Get Hana binary package" do
-      cwd "#{node['install']['tempdir']}"
-      command "wget --progress=dot:giga #{params[:bin_file_url]} -O SAP_HANA_PACKAGE.SAR"
-    end
 
-  elsif params[:bin_file_url].start_with?("/")
-    execute "Get Hana binary package" do
-      cwd "#{node['install']['tempdir']}"
-      command "cp #{params[:bin_file_url]} SAP_HANA_PACKAGE.SAR"
-    end
-=end
     if params[:bin_file_url].start_with?("file")
-    remote_file "#{node['install']['tempdir']}/IMDB_SERVER100_112_7-10009569.SAR" do
-      #source "file://#{node['install']['files']['hanadb']}"
+    remote_file "#{node['install']['tempdir']}/SAP_HANA_PACKAGE.SAR" do
       source "#{node['install']['files']['hanadb']}"
       action :create
     end
-    ######
-    #repeated code block ot fix syntax issue, fix soon! 11-21-16
-    #######
-    if params[:bin_file_url].start_with?("http")
+
+    elsif params[:bin_file_url].start_with?("http")
     execute "Get Hana binary package" do
       cwd "#{node['install']['tempdir']}"
       command "wget --progress=dot:giga #{params[:bin_file_url]} -O SAP_HANA_PACKAGE.SAR"

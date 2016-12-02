@@ -9,31 +9,34 @@ define :hdbcmd, :exe => "", :bin_dir => "", :bin_file_url => "" do
       action :create
       recursive true
     end
-
+ 
     remote_file "#{node['install']['tempdir']}/SAPCAR" do
       source "#{node['install']['files']['sapcar']}"
       action :create
+      backup false
     end
-
+=begin
     if params[:bin_file_url].start_with?("http")
     execute "Get Hana binary package" do
       cwd "#{node['install']['tempdir']}"
       command "wget --progress=dot:giga #{params[:bin_file_url]} -O SAP_HANA_PACKAGE.SAR"
     end
-    
-     elsif params[:bin_file_url].start_with?("file")
+=end
+    #elsif params[:bin_file_url].start_with?("file")
     remote_file "#{node['install']['tempdir']}/SAP_HANA_PACKAGE.SAR" do
       source "#{node['install']['files']['hanadb']}"
       action :create
+      backup false
     end
-
+=begin
   elsif
+
      unless $already_done
        directory "#{node['install']['productionmountpoint1']}" do
          action :create
          recursive true 
        end
-      
+
        mount "#{node['install']['productionmountpoint1']}" do
          device "#{node['install']['productiondevice1']}"
          not_if "mountpoint -q #{node['install']['productionmountpoint1']}"
@@ -68,8 +71,9 @@ define :hdbcmd, :exe => "", :bin_dir => "", :bin_file_url => "" do
       cwd "#{node['install']['tempdir']}"
       command "cp #{params[:bin_file_url]} SAP_HANA_PACKAGE.SAR"
     end
-  end
 
+  end
+=end
   #remote_file would fit both variants, but seems to be very slow compared to wget and cp
   #remote_file "Get SAP_HANA_PACKAGE.SAR file" do
   #    source "#{params[:bin_file_url]}"

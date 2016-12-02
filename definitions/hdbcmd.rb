@@ -15,16 +15,16 @@ define :hdbcmd, :exe => "", :bin_dir => "", :bin_file_url => "" do
       action :create
     end
 
-    if params[:bin_file_url].start_with?("file")
-    remote_file "#{node['install']['tempdir']}/SAP_HANA_PACKAGE.SAR" do
-      source "#{node['install']['files']['hanadb']}"
-      action :create
-    end
-
-    elsif params[:bin_file_url].start_with?("http")
+    if params[:bin_file_url].start_with?("http")
     execute "Get Hana binary package" do
       cwd "#{node['install']['tempdir']}"
       command "wget --progress=dot:giga #{params[:bin_file_url]} -O SAP_HANA_PACKAGE.SAR"
+    end
+    
+     elsif params[:bin_file_url].start_with?("file")
+    remote_file "#{node['install']['tempdir']}/SAP_HANA_PACKAGE.SAR" do
+      source "#{node['install']['files']['hanadb']}"
+      action :create
     end
 
   elsif

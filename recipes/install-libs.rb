@@ -29,7 +29,7 @@ if platform?("suse")
 elsif platform?("redhat")
   
   log "####################### Checking for Redhat dependencies ########################"
-  rhel_packages = [ "libaio","libtool-ltdl" ]
+  rhel_packages = [ "libaio","libtool-ltdl","compat-sap-c++-5" ]
   rhel_packages.each do |pkg|
     package pkg do
       action :upgrade

@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
     aws.keypair_name = ENV['AWS_KEYPAIR_NAME']
     aws.ami = ENV['AWS_AMI']
     aws.instance_type = ENV['AWS_INSTANCE_TYPE']
-    aws.block_device_mapping = [{'DeviceName' => '/dev/sda1', 'Ebs.VolumeSize' => 160}]
+    aws.block_device_mapping = [{ 'DeviceName' => '/dev/sda1', 'Ebs.VolumeSize' => 160 }]
 
     override.ssh.username = "ec2-user"
     override.ssh.private_key_path = "#{ENV['HOME']}/.ssh/#{ENV['AWS_KEYPAIR_NAME']}.pem"
@@ -34,5 +34,4 @@ Vagrant.configure("2") do |config|
       chef.add_recipe "hana::install"
     end
   end
-
 end

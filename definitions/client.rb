@@ -1,5 +1,4 @@
 define :client do
-
   # Hana client can be "coupled" to a Hana installation on the same node by passing the parameter "-s SID".
   # If this is not given, i.e. the client is being installed on a stand-alone machine, set the node attribute "clientsid" to false.
   if "#{node['hana']['clientsid']}".chomp == "true"
@@ -10,11 +9,9 @@ define :client do
     sid = ""
   end
 
- log "---------"
+  log "---------"
   log "using the hana_install_command"
   log "---------"
-
-
 
   hana_install_command = "./hdbinst -a client -p #{node['hana']['installpath']}/hdbclient #{sid}"
 
@@ -27,5 +24,4 @@ define :client do
     bin_dir "SAP_HANA_CLIENT"
     bin_file_url "#{node['install']['files']['hanaclient']}"
   end
-
 end

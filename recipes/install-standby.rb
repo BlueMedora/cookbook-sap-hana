@@ -40,7 +40,6 @@ if !File.exists?("#{node['hana']['installpath']}/#{node['hana']['sid']}/HDB#{nod
   # check if install of the master node is finished, by checking the install.finish file
   ruby_block "Wait for the HANA Master installation to finish" do
     block do
-
       # File should be in a path visible to all nodes, this path is on the nfs share which must be mounted
       # saperatly (defined in a role or any other place which runs before this recipe)
       install_finished_file = "#{node['hana']['installpath']}/#{node['hana']['sid']}/install.finished"
@@ -64,7 +63,7 @@ if !File.exists?("#{node['hana']['installpath']}/#{node['hana']['sid']}/HDB#{nod
   # build hana install command
   hana_install_worker_command = "./hdbaddhost --batch --sid=#{node['hana']['sid']} --hostname=#{hostname} --sapmnt=#{node['hana']['installpath']} --password=#{node['hana']['password']} --role=standby"
   if "#{node['hana']['checkhardware']}".chomp != "true"
-    #hana_install_worker_command = "export HDB_COMPILEBRANCH=1 && export HDB_IGNORE_HANA_PLATFORM_CHECK=1 && #{hana_install_worker_command} --ignore=#{node['hana']['checkstoignore']}"
+    # hana_install_worker_command = "export HDB_COMPILEBRANCH=1 && export HDB_IGNORE_HANA_PLATFORM_CHECK=1 && #{hana_install_worker_command} --ignore=#{node['hana']['checkstoignore']}"
     hana_install_worker_command = "export HDB_COMPILEBRANCH=1 && export HDB_IGNORE_HANA_PLATFORM_CHECK=1 && #{hana_install_worker_command}"
   end
 

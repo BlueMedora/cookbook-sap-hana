@@ -2,7 +2,6 @@
 # Recipe:: install
 # Installs SAP Hana on the node.
 
-
 # check if any hana installation was done already
 if !File.exists?("#{node['hana']['installpath']}/#{node['hana']['sid']}/install.finished")
 

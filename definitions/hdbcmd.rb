@@ -1,5 +1,4 @@
 define :hdbcmd, :exe => "", :bin_dir => "", :bin_file_url => "" do
-
   # check for platform and install libraries
   include_recipe "hana::install-libs"
 
@@ -37,8 +36,8 @@ define :hdbcmd, :exe => "", :bin_dir => "", :bin_file_url => "" do
     command "#{params[:exe]}"
   end
 
-  # Note: readymade-XSauto requires the if-case. Contact D023081. 
-  if node['hana']['retain_instdir'] 
+  # Note: readymade-XSauto requires the if-case. Contact D023081.
+  if node['hana']['retain_instdir']
     Chef::Log.info "Retaining installation directory for sub-sequent AFL installation."
   else
     rmtempdir "clean up /monsoon/tmp directory"

@@ -1,4 +1,4 @@
-Description 
+hana cookbook 
 ===========
 This cookbook provides recipes for installing SAP Hana Server & Client / Sap Hana Client
 Tested with Vagrant & AWS Provider
@@ -11,8 +11,7 @@ Requirements
 
 * AWS Image - Suse SLES 11 SP3 (checked on this AMI: ami-f1f5acc1 from region: us-west-2)
 * approx. 25GB in the rootfs directory and 5GB for the specified directory in attribute `['install'].['tempdir']`
-* AWS EC2 Instance Type: c4.4xlarge (Minimum requirements - tested on this type)
-* 
+* AWS EC2 Instance Type: c4.4xlarge (Minimum requirements - tested on this type) 
 
 ### Attributes
 

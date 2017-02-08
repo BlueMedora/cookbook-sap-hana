@@ -1,5 +1,4 @@
 define :server, :exe => "" do
-
   if "#{node['hana']['checkhardware']}".chomp != "true"
     hana_install_command = "export HDB_COMPILEBRANCH=1 && export HDB_IGNORE_HANA_PLATFORM_CHECK=1 && #{params[:exe]} --ignore=#{node['hana']['checkstoignore']}"
   else
@@ -41,13 +40,13 @@ define :server, :exe => "" do
     end
 
   end
-  
+
   # check if a virtual hostname is defined - if yes, we add the corresponding option to the installer
   if "#{node['hana']['hostname']}" != ""
     Chef::Log.info "a custom hostname #{node['hana']['hostname']} is defined and will be used for the installation"
     hana_install_command = "#{hana_install_command} --hostname=#{node['hana']['hostname']}"
   end
-  
+
   log "---------"
   log "will use installer from #{node['install']['files']['hanadb']}"
   log "---------"
@@ -57,5 +56,4 @@ define :server, :exe => "" do
     bin_dir "SAP_HANA_DATABASE"
     bin_file_url "#{node['install']['files']['hanadb']}"
   end
-  
 end

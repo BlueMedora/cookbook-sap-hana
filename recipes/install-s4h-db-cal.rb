@@ -6,7 +6,7 @@ Chef::Log.info "Executing #{cookbook_name}::#{recipe_name}"
 
 sidadm = "#{node[:hana][:sid].downcase}adm"
 
-#needed for sap_media definition, all files will be downloaded to /hana insteaad of tmp
+# needed for sap_media definition, all files will be downloaded to /hana insteaad of tmp
 ENV["TMPDIR"] = "/hana"
 
 # directory "/hana/usr_sap" do
@@ -24,7 +24,7 @@ ENV["TMPDIR"] = "/hana"
 #   to "/hana/usr_sap"
 # end
 
-#download all *.SAR files of the CAL image: DBLOG, DBDATA, DBEXE
+# download all *.SAR files of the CAL image: DBLOG, DBDATA, DBEXE
 node[:s4h][:media].each do |disk|
   sap_media disk do
     repo_path "/static/monsoon/sap/s4hana/#{node[:s4h][:product]}/#{node[:s4h][:version]}"
@@ -32,7 +32,7 @@ node[:s4h][:media].each do |disk|
   end
 end
 
-#open all files using tar: DBLOG, DBDATA, DBEXE
+# open all files using tar: DBLOG, DBDATA, DBEXE
 node[:s4h][:media].each do |disk|
   bash "restore files HANA DB-S4H - #{disk}" do
     user "root"
@@ -44,11 +44,9 @@ node[:s4h][:media].each do |disk|
   touch #{node[:s4h][:media_dir]}/#{disk}/install.finished
 
     EOF
-    not_if { ::File.exists?("#{node[:s4h][:media_dir]}/#{disk}/install.finished")}
+    not_if { ::File.exists?("#{node[:s4h][:media_dir]}/#{disk}/install.finished") }
   end
-
 end
-
 
 bash "HANA DB - hdbreg utility" do
   user "root"
@@ -65,9 +63,8 @@ bash "HANA DB - hdbreg utility" do
   touch /hana/shared/hdbreg.finished
 
   EOF
-  not_if { ::File.exists?("/hana/shared/hdbreg.finished")}
+  not_if { ::File.exists?("/hana/shared/hdbreg.finished") }
 end
-
 
 bash "HANA DB - Convert Topology" do
   user "root"
@@ -80,9 +77,8 @@ bash "HANA DB - Convert Topology" do
   touch /hana/shared/topology.finished
 
   EOF
-  not_if { ::File.exists?("/hana/shared/topology.finished")}
+  not_if { ::File.exists?("/hana/shared/topology.finished") }
 end
-
 
 log "starting HANA DB for the first time takes a few minutes"
 bash "HANA DB - Start DB" do

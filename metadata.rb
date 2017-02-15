@@ -1,4 +1,4 @@
-name             'hana'
+name             'sap-hana'
 maintainer       'Haggai Philip Zagury'
 maintainer_email 'haggai.zagury@sap.com'
 license          'Apache 2.0'
@@ -16,5 +16,5 @@ recipe           "hana::install-s4h-db-cal", "installs a S4H HANA DB from a CAL 
   supports os
 end
 
-source_url 'https://github.com/sapcc/sap-hana-cookbook' if respond_to?(:source_url)
-issues_url 'https://github.com/sapcc/sap-hana-cookbook/issues' if respond_to?(:issues_url)
+source_url 'https://github.com/BlueMedoraPublic/cookbook-sap-hana' if respond_to?(:source_url)
+issues_url 'https://github.com/BlueMedoraPublic/cookbook-sap-hana/issues' if respond_to?(:issues_url)
